@@ -15,7 +15,8 @@
 
   <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
-      <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+      <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top"
+        alt="">
       Stock
     </a>
   </nav>
@@ -25,14 +26,14 @@
     <div class="row">
       <div class="col-3">
         <ul class="nav flex-column">
-          
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'category_add' %}">Adicionar nova categoria</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Adicionar entrada estoque</a>
+            <a class="nav-link" href="{% url 'stock_add' %}">Adicionar entrada estoque</a>
           </li>
-          
+
         </ul>
       </div>
 
@@ -48,25 +49,47 @@
             </tr>
           </thead>
           <tbody>
+            {% for stock in all_stock %}
             <tr>
-              {% for stock in all_stock %}
-                <th scope="row">{{ stock.id }}</th>
-                <td>{{ stock.name }}</td>
-                <td>{{ stock.category }}</td>
-                <td>{{ stock.quantity }}</td>
-                <td>{{ stock.unitary_value }}</td>
-              {% endfor %}
+              <th scope="row">{{ stock.id }}</th>
+              <td>{{ stock.name }}</td>
+              <td>{{ stock.category }}</td>
+              <td>{{ stock.quantity }}</td>
+              <td>{{ stock.unitary_value }}</td>
             </tr>
+            {% endfor %}
           </tbody>
         </table>
 
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            
+            <li class="page-item">
+              {% if all_stock.has_previous %}
+                <a class="page-link" href="?page={{ all_stock.previous_page_number }}" tabindex="-1"
+                aria-disabled="true">Previous</a>
+              {% endif %}
+            </li>
+
+            {% for page in range_pages %}
+              {% if page != all_stock.number %}
+                <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+              {% else %}
+                <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+              {% endif %}
+            {% endfor %}
+            
+            <li class="page-item">
+              {% if all_stock.has_next %}
+                <a href="?page={{ all_stock.next_page_number }}" class="page-link" href="#">Next</a>
+              {% endif %}
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
-
-    
   </div>
-
-
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
