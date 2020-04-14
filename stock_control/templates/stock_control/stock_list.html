@@ -19,6 +19,10 @@
         alt="">
       Stock
     </a>
+    <form action="{% url 'search_results' %}" method="GET" class="form-inline my-2 my-lg-0">
+      <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </nav>
 
   <div class="container mt-4">
@@ -46,6 +50,7 @@
               <th scope="col">Category</th>
               <th scope="col">Quantity</th>
               <th scope="col">Value</th>
+              <th scope="col">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -56,6 +61,9 @@
               <td>{{ stock.category }}</td>
               <td>{{ stock.quantity }}</td>
               <td>{{ stock.unitary_value }}</td>
+
+              <td><a href="{% url 'stock_detail' stock.id%}"> More </a></td>
+
             </tr>
             {% endfor %}
           </tbody>
@@ -64,25 +72,25 @@
 
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-end">
-            
+
             <li class="page-item">
               {% if all_stock.has_previous %}
-                <a class="page-link" href="?page={{ all_stock.previous_page_number }}" tabindex="-1"
+              <a class="page-link" href="?page={{ all_stock.previous_page_number }}" tabindex="-1"
                 aria-disabled="true">Previous</a>
               {% endif %}
             </li>
 
             {% for page in range_pages %}
-              {% if page != all_stock.number %}
-                <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
-              {% else %}
-                <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
-              {% endif %}
+            {% if page != all_stock.number %}
+            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+            {% else %}
+            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+            {% endif %}
             {% endfor %}
-            
+
             <li class="page-item">
               {% if all_stock.has_next %}
-                <a href="?page={{ all_stock.next_page_number }}" class="page-link" href="#">Next</a>
+              <a href="?page={{ all_stock.next_page_number }}" class="page-link" href="#">Next</a>
               {% endif %}
             </li>
           </ul>
@@ -90,6 +98,7 @@
       </div>
     </div>
   </div>
+
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
