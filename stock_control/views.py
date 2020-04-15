@@ -27,7 +27,7 @@ class SearchResultsView(ListView):
 
 def stock_list(request):
     stock = Stock.objects.all()
-    all_stock = Paginator(stock, 3)
+    all_stock = Paginator(stock, 2)
 
     page_number = request.GET.get('page')
     page_obj = all_stock.get_page(page_number)
@@ -37,7 +37,7 @@ def stock_list(request):
     })
 
 @login_required
-def stock_add(request):
+def stock_create(request):
     if request.method == "POST":
         form = StockForm(request.POST)
         if form.is_valid():
@@ -47,7 +47,7 @@ def stock_add(request):
     else:
         form = StockForm()
 
-    return render(request, 'stock_control/stock_add.html', {'form': form})
+    return render(request, 'stock_control/stock_create.html', {'form': form})
 
 
 @login_required
@@ -75,15 +75,6 @@ def stock_delete(request, stock_id):
         return redirect('/')
     except:
         return HttpResponseNotFound()  
-
-@login_required
-def stock_detail_modal(request, stock_id):
-    stock = get_object_or_404(Stock ,id=stock_id)
-    return render(
-        request, 
-        'stock_control/stock_list.html', 
-        {'stock': stock}
-    )
 
 
 def category_add(request):

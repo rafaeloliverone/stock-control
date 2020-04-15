@@ -1,135 +1,95 @@
-<!doctype html>
-<html lang="en">
+{% extends 'stock_control/base.html' %}
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <title>List Stock</title>
+{% block container %}
+<div class="container mt-4">
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-</head>
+  <div class="row">
+    <div class="col-3">
+      <ul class="nav flex-column">
 
-<body>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'category_add' %}">Adicionar nova categoria</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'stock_create' %}">Adicionar entrada estoque</a>
+        </li>
 
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-      <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top"
-        alt="">
-      Stock
-    </a>
-    <form action="{% url 'search_results' %}" method="GET" class="form-inline my-2 my-lg-0">
-      <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </nav>
+      </ul>
+    </div>
 
-  <div class="container mt-4">
+    <div class="col-9">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Value</th>
+            <th scope="col">Details</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for stock in all_stock %}
+          <tr>
+            <th scope="row">{{ stock.id }}</th>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.category }}</td>
+            <td>{{ stock.quantity }}</td>
+            <td>{{ stock.unitary_value }}</td>
 
-    <div class="row">
-      <div class="col-3">
-        <ul class="nav flex-column">
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'category_add' %}">Adicionar nova categoria</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'stock_add' %}">Adicionar entrada estoque</a>
-          </li>
-
-        </ul>
-      </div>
-
-      <div class="col-9">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Value</th>
-              <th scope="col">Details</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for stock in all_stock %}
-            <tr>
-              <th scope="row">{{ stock.id }}</th>
-              <td>{{ stock.name }}</td>
-              <td>{{ stock.category }}</td>
-              <td>{{ stock.quantity }}</td>
-              <td>{{ stock.unitary_value }}</td>
-
-              <td><a href="{% url 'stock_detail' stock.id%}"> 
+            <td><a href="{% url 'stock_detail' stock.id%}">
                 <span class="material-icons">
                   more
-                </span>  
+                </span>
               </a></td>
 
-              <td><a href="{% url 'stock_edit' stock.id%}"> 
+            <td><a href="{% url 'stock_edit' stock.id%}">
                 <span class="material-icons">
                   edit
-                </span>  
+                </span>
               </a></td>
 
-              <td ><a href="{% url 'stock_delete' stock.id%}">
+            <td><a href="{% url 'stock_delete' stock.id%}">
                 <span class="material-icons">
                   delete
                 </span>
               </a></td>
 
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
 
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-end">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
 
-            <li class="page-item">
-              {% if all_stock.has_previous %}
-              <a class="page-link" href="?page={{ all_stock.previous_page_number }}" tabindex="-1"
-                aria-disabled="true">Previous</a>
-              {% endif %}
-            </li>
-
-            {% for page in range_pages %}
-            {% if page != all_stock.number %}
-            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
-            {% else %}
-            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+          <li class="page-item">
+            {% if all_stock.has_previous %}
+            <a class="page-link" href="?page={{ all_stock.previous_page_number }}" tabindex="-1"
+              aria-disabled="true">Previous</a>
             {% endif %}
-            {% endfor %}
+          </li>
 
-            <li class="page-item">
-              {% if all_stock.has_next %}
-              <a href="?page={{ all_stock.next_page_number }}" class="page-link" href="#">Next</a>
-              {% endif %}
-            </li>
-          </ul>
-        </nav>
-      </div>
+          {% for page in range_pages %}
+          {% if page != all_stock.number %}
+          <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+          {% else %}
+          <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+          {% endif %}
+          {% endfor %}
+
+          <li class="page-item">
+            {% if all_stock.has_next %}
+            <a href="?page={{ all_stock.next_page_number }}" class="page-link" href="#">Next</a>
+            {% endif %}
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
-
-
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-</body>
-
-</html>
+</div>
+{% endblock %}
