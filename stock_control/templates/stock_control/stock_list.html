@@ -4,15 +4,26 @@
 <div class="container mt-4">
 
   <div class="row">
-    <div class="col-3">
-      <ul class="nav flex-column">
+    <div class="col">
+      <ul class="nav flex-column pt-2">
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'category_add' %}">Adicionar nova categoria</a>
+          <a class="btn btn-primary" href="{% url 'category_add' %}" style="display: flex; align-items: center; justify-content: center;">
+            <span class="material-icons mr-2">
+              add
+            </span>
+            Nova categoria
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'stock_create' %}">Adicionar entrada estoque</a>
-        </li>
+
+        <li class="nav-item mt-4 mb-3">
+          <a class="btn btn-primary" href="{% url 'stock_create' %}" style="display: flex; align-items: center; justify-content: center;">
+            <span class="material-icons mr-2">
+              add
+            </span>
+            Entrada estoque
+          </a>
+        </li> 
 
       </ul>
     </div>

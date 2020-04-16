@@ -3,21 +3,42 @@
 {% block title %} Stock Detail {% endblock%}
 
 {% block container %}
-
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{ stock.name }}</h5>
-      <p class="card-text">{{ stock.category }}</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{ stock.quantity }}</li>
-      <li class="list-group-item">{{ stock.unitary_value }}</li>
-      <li class="list-group-item">{{ stock.created_date }}</li>
-    </ul>
-    <div class="card-body">
-      <!-- <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a> -->
-    </div>
-  </div>
+<div class="container">
+  <a href="{% url 'stock_list' %}">
+    <span class="material-icons mt-3 mb-3">
+      arrow_back
+    </span>
+  </a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Field</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Name</th>
+        <td>{{ stock.name }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Category</th>
+        <td>{{ stock.category }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Quantity</th>
+        <td>{{ stock.quantity }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Unitary Value</th>
+        <td>{{ stock.unitary_value }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Created_date</th>
+        <td>{{ stock.created_date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}

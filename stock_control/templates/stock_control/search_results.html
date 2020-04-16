@@ -2,17 +2,66 @@
 
 {% block title %} Search results {% endblock%}
 
-
 {% block container %}
-    <h1>Search Results</h1>
 
-    <ul>
+<div class="container mt-4">
+  {% if object_list %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Value</th>
+          <th scope="col">Details</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for stock in object_list %}
-        <li>
-            {{ stock.name }}
-            
-        </li>
-        {% endfor %}
-    </ul>
-{% endblock %}
+          <tr>
+            <th scope="row">{{ stock.id }}</th>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.category }}</td>
+            <td>{{ stock.quantity }}</td>
+            <td>{{ stock.unitary_value }}</td>
 
+            <td>
+              <a href="{% url 'stock_detail' stock.id%}">
+                <span class="material-icons">
+                  more
+                </span>
+              </a>
+            </td>
+
+            <td>
+              <a href="{% url 'stock_edit' stock.id%}">
+                <span class="material-icons">
+                  edit
+                </span>
+              </a>
+            </td>
+
+            <td>
+              <a href="{% url 'stock_delete' stock.id%}">
+                <span class="material-icons">
+                  delete
+                </span>
+              </a>
+            </td>
+
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% else %}
+    <div class="alert alert-secondary" role="alert">
+      Nenhum item corresponde a sua pesquisa, tente novamente!
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

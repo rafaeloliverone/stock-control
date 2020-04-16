@@ -3,36 +3,35 @@
 {% block title %} Stock Edit {% endblock%}
 
 {% block style %}
-<style>
-  .formCategory {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-</style>
+  <style>
+    .formCategory {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 {% endblock %}
 
 {% block container %}
 {% load crispy_forms_tags %}
 
-<div class="container">
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+      </div>
+      <div class="col-6 stylesheet formCategory">
 
-  <div class="row">
-    <div class="col-3">
-    </div>
-    <div class="col-6 stylesheet formCategory">
-
-      <form method="POST" class="post-form" style="width: 100%;">
-        <h3 class="mb-4">Cadastrar novo item</h3>
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="save btn btn-primary">Update</button>
-      </form>
-    </div>
-    <div class="col-3">
+        <form method="POST" class="post-form" style="width: 100%;">
+          <h3 class="mb-4">Cadastrar novo item</h3>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="save btn btn-primary">Update</button>
+        </form>
+      </div>
+      <div class="col-3">
+      </div>
     </div>
   </div>
-
-</div>
+  
 {% endblock %}

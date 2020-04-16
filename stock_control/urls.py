@@ -10,6 +10,6 @@ urlpatterns = [
     path('stock/<int:pk>/edit/', StockUpdate.as_view(), name='stock_edit'),
     path('stock/<int:stock_id>/delete/', views.stock_delete, name='stock_delete'),
 
-    path('search/', SearchResultsView.as_view(), name='search_results'),
     path('category/new/', views.category_add, name='category_add'),
+    path('search/', SearchResultsView.as_view(), name='search_results'),
 ]
