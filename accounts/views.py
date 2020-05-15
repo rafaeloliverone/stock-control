@@ -16,7 +16,7 @@ from .forms import CreateUserForm
 
 def registerPage(request):
 	if request.user.is_authenticated:
-		return redirect('home')
+		return redirect('stock_list')
 	else:
 		form = CreateUserForm()
 		if request.method == 'POST':
@@ -45,7 +45,7 @@ def loginPage(request):
 
 			if user is not None:
 				login(request, user)
-				return redirect(stock_list)
+				return redirect('stock_list')
 			else:
 				messages.info(request, 'Username or password is incorrect')
 			
@@ -56,5 +56,3 @@ def logoutUser(request):
 	logout(request)
 	return redirect('login')
 
-def home(request):
-    return render(request, 'index.html')
