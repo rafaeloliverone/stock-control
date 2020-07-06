@@ -5,6 +5,11 @@
 
 Sistema com autenticação para adicionar produtos e categorias ao estoque, com intuito de melhorar a gestão.
 
+<h1 align="center">
+    <img alt="Starter" title="Javascript Starter"src="static/screen1.jpg"  />
+    <img alt="Starter" title="Javascript Starter"src="static/screen2.jpg"  />
+</h1>
+
 ## Execução 💻
 
 > Ativando ambiente virtual
